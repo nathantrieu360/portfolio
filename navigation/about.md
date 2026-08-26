@@ -117,11 +117,3 @@ comfortable sharing an interest.
     patient decision-making and explain complex ideas clearly.
   </li>
 </ul>
-
-### How I Try to Lead
-
-<ul class="about-list">
-  <li><strong>Make people feel included.</strong> A strong team gives new members a reason to return and room to contribute.</li>
-  <li><strong>Improve through consistency.</strong> Small actions repeated over time matter more than one impressive moment.</li>
-  <li><strong>Turn ideas into action.</strong> Leadership means planning the details, adapting when needed, and following through.</li>
-</ul>
