@@ -42,6 +42,23 @@ runner, teammate, and community leader.
     margin-bottom: 0.8rem;
     line-height: 1.6;
   }
+
+  .image-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .image-gallery img {
+    flex: 0 0 auto;
+    width: auto;
+    height: 180px;
+    max-width: none;
+    object-fit: contain;
+    border-radius: 5px;
+  }
 </style>
 
 <div class="about-location-grid" id="about_location_grid">
@@ -117,3 +134,20 @@ comfortable sharing an interest.
     patient decision-making and explain complex ideas clearly.
   </li>
 </ul>
+
+### Photos
+
+Scroll to the right for more.
+
+<div class="image-gallery" aria-label="Photo gallery">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-01.jpg" alt="Nathan at school" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-02.jpg" alt="Nathan in a casual setting" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-03.jpg" alt="Nathan with friends" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-04.jpg" alt="Nathan with a student group" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-05.jpg" alt="Nathan at a club meeting" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-06.jpg" alt="Nathan during a school activity" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-07.jpg" alt="Nathan at a music event" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-08.jpg" alt="Nathan at a classroom activity" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-09.jpg" alt="Nathan with classmates" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-10.jpg" alt="Nathan with club members" loading="lazy">
+</div>
