@@ -1,138 +1,161 @@
 ---
 layout: post
-title: About
+title: About Me
 permalink: /about/
-comments: true
+comments: false
 ---
 
 ## As a conversation Starter
 
-Here are some places I have lived!
+Here are some places I have lived.
 
 <comment>
 Flags are made using Wikipedia images
 </comment>
 
 <style>
-    /* Style looks pretty compact, 
-       - grid-container and grid-item are referenced the code 
-    */
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Dynamic columns */
-        gap: 10px;
-    }
-    .grid-item {
-        text-align: center;
-    }
-    .grid-item img {
-        width: 100%;
-        height: 100px; /* Fixed height for uniformity */
-        object-fit: contain; /* Ensure the image fits within the fixed height */
-    }
-    .grid-item p {
-        margin: 5px 0; /* Add some margin for spacing */
-    }
+  .about-location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    max-width: 220px;
+    margin: 1rem 0 1.5rem;
+  }
 
-    .image-gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 10px;
-        }
+  .about-location-card {
+    text-align: center;
+  }
 
-    .image-gallery img {
-        max-height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
+  .about-location-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+  }
+
+  .about-location-card p {
+    margin: 5px 0;
+  }
+
+  .about-location-card .about-greeting {
+    color: var(--text-muted, #888);
+    font-size: 0.9rem;
+  }
+
+  .about-list li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .image-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .image-gallery img {
+    flex: 0 0 auto;
+    width: auto;
+    height: 180px;
+    max-width: none;
+    object-fit: contain;
+    border-radius: 5px;
+  }
 </style>
 
-<!-- This grid_container class is used by CSS styling and the id is used by JavaScript connection -->
-<div class="grid-container" id="grid_container">
-    <!-- content will be added here by JavaScript -->
+<div class="about-location-grid" id="about_location_grid">
+  <!-- California is added here with JavaScript. -->
 </div>
 
 <script>
-    // 1. Make a connection to the HTML container defined in the HTML div
-    var container = document.getElementById("grid_container"); // This container connects to the HTML div
-
-    // 2. Define a JavaScript object for our http source and our data rows for the Living in the World grid
-    var http_source = "https://upload.wikimedia.org/wikipedia/commons/";
-    var living_in_the_world = [
-        {"flag": "0/01/Flag_of_California.svg", "greeting": "Hey", "description": "California - forever"},
-        {"flag": "b/b9/Flag_of_Oregon.svg", "greeting": "Hi", "description": "Oregon - 9 years"},
-        {"flag": "b/be/Flag_of_England.svg", "greeting": "Alright mate", "description": "England - 2 years"},
-        {"flag": "e/ef/Flag_of_Hawaii.svg", "greeting": "Aloha", "description": "Hawaii - 2 years"},
+  (function () {
+    const container = document.getElementById("about_location_grid");
+    const imageSource = "https://upload.wikimedia.org/wikipedia/commons/";
+    const locations = [
+      {
+        flag: "0/01/Flag_of_California.svg",
+        greeting: "My home for life",
+        description: "California"
+      },
+      {
+        flag: "2/21/Flag_of_Vietnam.svg",
+        greeting: "My family is from Vietnam",
+        description: "Vietnam"
+      }
     ];
 
-    // 3a. Consider how to update style count for size of container
-    // The grid-template-columns has been defined as dynamic with auto-fill and minmax
+    for (const location of locations) {
+      const card = document.createElement("div");
+      card.className = "about-location-card";
 
-    // 3b. Build grid items inside of our container for each row of data
-    for (const location of living_in_the_world) {
-        // Create a "div" with "class grid-item" for each row
-        var gridItem = document.createElement("div");
-        gridItem.className = "grid-item";  // This class name connects the gridItem to the CSS style elements
-        // Add "img" HTML tag for the flag
-        var img = document.createElement("img");
-        img.src = http_source + location.flag; // concatenate the source and flag
-        img.alt = location.flag + " Flag"; // add alt text for accessibility
+      const flag = document.createElement("img");
+      flag.src = imageSource + location.flag;
+      flag.alt = "Flag of " + location.description;
 
-        // Add "p" HTML tag for the description
-        var description = document.createElement("p");
-        description.textContent = location.description; // extract the description
+      const description = document.createElement("p");
+      description.textContent = location.description;
 
-        // Add "p" HTML tag for the greeting
-        var greeting = document.createElement("p");
-        greeting.textContent = location.greeting;  // extract the greeting
+      const greeting = document.createElement("p");
+      greeting.className = "about-greeting";
+      greeting.textContent = location.greeting;
 
-        // Append img and p HTML tags to the grid item DIV
-        gridItem.appendChild(img);
-        gridItem.appendChild(description);
-        gridItem.appendChild(greeting);
-
-        // Append the grid item DIV to the container DIV
-        container.appendChild(gridItem);
+      card.appendChild(flag);
+      card.appendChild(description);
+      card.appendChild(greeting);
+      container.appendChild(card);
     }
+  })();
 </script>
 
-### Journey through Life
+### Running and Athletics
 
-Here is what I did at those places
+Distance running has taught me that meaningful progress comes from consistency,
+patience, and trust in a team. I began cross country with a 25:20 5K and worked
+down to 17:03. That journey shaped how I compete, respond to setbacks, and
+encourage younger runners who are still discovering what they can do.
 
-- 🏫 Lots of Elementary Schools in Tucson, LA, Honolulu, and Glendale (CA)
-- 🏫 Middle and High School in Glendale (CA), Hoover High graduated '77
-- 🎓 Glendale CA Community College, UCLA Extension, LA Wilshire Computer Tech School '77 to '79
-- ⛪ England, London Missionary for Church of Jesus Christ of Latter-day Saints '79 to '81
-- 💼 Culver City, Glendale CA founder at Ashton-Tate, original PC's dBase 2 and 3 '82 to '87
-- 🎓 Eugene Oregon Undergraduate CompSci Degree at University of Oregon (Go Ducks!) '89 to '91
-- 💼 Eugene Oregon, founder and owner @ Microniche `88, Point Control CAD CAM developer '91 to '96
-- 🏢 San Diego CA Qualcomm, Satellite Comm and 1st Mobile OS (BREW) '96 to '19
-- 👨‍🏫 San Diego CA Teacher of Computer Science @ Del Norte High School San Diego '19 to present
+### Clubs and Leadership
 
-### Culture, Family, and Fun
+I am most energized by leadership that creates something real: a meeting people
+look forward to, an event that serves a community, or a space where someone feels
+comfortable sharing an interest.
 
-Everything for me, as for many others, revolves around family and faith.
+<ul class="about-list">
+  <li>
+    🎧 <strong>Underground Rap Club — Co-founder and President.</strong>
+    Built a school community of more than 20 music fans who share recommendations,
+    discover emerging artists, and study the trends and culture behind the music.
+    Leading the club has taught me how to turn an unusual idea into an organized,
+    welcoming group.
+  </li>
+  <li>
+    🏁 <strong>San Diego Milk Mile Association — Founder and Event Organizer.</strong>
+    Created an annual community race that combines competition, fun, and charitable
+    giving. I manage planning, registration, budgeting, promotion, volunteers, and
+    race-day logistics to move the event from an idea to the starting line.
+  </li>
+  <li>
+    ♟️ <strong>Chess Club and Instruction — Vice President and Volunteer Instructor.</strong>
+    Support a school team that placed fifth at the San Diego County championship and
+    teach younger players through library lessons and camps. Chess has helped me practice
+    patient decision-making and explain complex ideas clearly.
+  </li>
+</ul>
 
-- My mother told me that I was Danish, English. and Irish, here is my researched [family tree]({{site.baseurl}}/images/about/familytree.png)
-- My family is pretty big as I have been married twice, my 1st wife passed away.  We have had 5 kids, 4 adopted by me, 1 biological.  Plus, there are three grandkids.  My name to my grandkids is Abuilito.
-- The gallery of pics has some of my family, fun, culture and faith memories.
+### Photos
 
-<comment>
-Gallery of Pics, scroll to the right for more ...
-</comment>
-<div class="image-gallery">
-  <img src="{{site.baseurl}}/images/about/missionary.jpg" alt="Image 1">
-  <img src="{{site.baseurl}}/images/about/john_tamara.jpg" alt="Image 2">
-  <img src="{{site.baseurl}}/images/about/tamara_fam.jpg" alt="Image 3">
-  <img src="{{site.baseurl}}/images/about/surf.jpg" alt="Image 4">
-  <img src="{{site.baseurl}}/images/about/john_lora.jpg" alt="Image 5">
-  <img src="{{site.baseurl}}/images/about/lora_fam.jpg" alt="Image 6">
-  <img src="{{site.baseurl}}/images/about/lora_fam2.jpg" alt="Image 7">
-  <img src="{{site.baseurl}}/images/about/pj_party.jpg" alt="Image 8">
-  <img src="{{site.baseurl}}/images/about/trent_family.png" alt="Image 9">
-  <img src="{{site.baseurl}}/images/about/claire.jpg" alt="Image 10">
-  <img src="{{site.baseurl}}/images/about/grandkids.jpg" alt="Image 11">
-  <img src="{{site.baseurl}}/images/about/farm.jpg" alt="Image 12">
+Scroll to the right for more.
+
+<div class="image-gallery" aria-label="Photo gallery">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-01.jpg" alt="Nathan at school" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-02.jpg" alt="Nathan in a casual setting" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-03.jpg" alt="Nathan with friends" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-04.jpg" alt="Nathan with a student group" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-05.jpg" alt="Nathan at a club meeting" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-06.jpg" alt="Nathan during a school activity" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-07.jpg" alt="Nathan at a music event" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-08.jpg" alt="Nathan at a classroom activity" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-09.jpg" alt="Nathan with classmates" loading="lazy">
+  <img src="{{site.baseurl}}/images/about/nathan/photo-10.jpg" alt="Nathan with club members" loading="lazy">
 </div>
