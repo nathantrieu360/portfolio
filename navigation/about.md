@@ -8,7 +8,7 @@ comments: false
 ## As a Conversation Starter
 
 I have lived in California my whole life. It is where I have grown as a student,
-runner, teammate, and community leader.
+runner, teammate, and community leader. My family is from Vietnam.
 
 <style>
   .about-location-grid {
@@ -74,6 +74,11 @@ runner, teammate, and community leader.
         flag: "0/01/Flag_of_California.svg",
         greeting: "My home for life",
         description: "California"
+      },
+      {
+        flag: "2/21/Flag_of_Vietnam.svg",
+        greeting: "My family is from Vietnam",
+        description: "Vietnam"
       }
     ];
 
