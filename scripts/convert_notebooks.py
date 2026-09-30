@@ -1064,11 +1064,15 @@ def convert_notebook_to_markdown_with_front_matter(notebook_file):
         # Inject code-runner includes (and submit buttons if challenge_submit is enabled)
         markdown = inject_code_runners(markdown, notebook, front_matter)
         
-        front_matter_content = (
-            "---\n"
-            + "\n".join(f"{key}: {value}" for key, value in front_matter.items())
-            + "\n---\n\n"
-        )
+        # Serialize front matter with YAML instead of string interpolation.
+        # This safely quotes values containing ":" (for example lesson titles).
+        yaml_front_matter = yaml.safe_dump(
+            front_matter,
+            default_flow_style=False,
+            sort_keys=False,
+            allow_unicode=True,
+        ).rstrip()
+        front_matter_content = f"---\n{yaml_front_matter}\n---\n\n"
         markdown_with_front_matter = front_matter_content + markdown
         destination_path = get_relative_output_path(notebook_file)
         ensure_directory_exists(destination_path)
