@@ -7,6 +7,7 @@ export class CodeExecutor {
     this.pythonURI = pythonURI;
     this.javaURI = javaURI;
     this.fetchOptions = fetchOptions;
+    this.pyodidePromise = null;
   }
 
   async run() {
@@ -48,12 +49,64 @@ export class CodeExecutor {
         execTimeSpan.textContent = `⏱Execution time: ${Date.now() - startTime}ms`;
       }
     } catch (err) {
-      if (lang === 'javascript' && isLocalhost) {
+      if (lang === 'python') {
+        await this.runPythonFallback(code, startTime);
+      } else if (lang === 'javascript' && isLocalhost) {
         this.runJavaScriptFallback(code, startTime);
       } else {
         outputDiv.textContent = 'Error: ' + err.message;
         if (execTimeSpan) execTimeSpan.textContent = '';
       }
+    }
+  }
+
+  loadPyodideRuntime() {
+    if (this.pyodidePromise) {
+      return this.pyodidePromise;
+    }
+
+    if (window.loadPyodide) {
+      this.pyodidePromise = window.loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/'
+      });
+      return this.pyodidePromise;
+    }
+
+    this.pyodidePromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js';
+      script.onload = () => resolve(window.loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/'
+      }));
+      script.onerror = () => reject(new Error('Browser Python runtime failed to load'));
+      document.head.appendChild(script);
+    });
+
+    return this.pyodidePromise;
+  }
+
+  async runPythonFallback(code, startTime) {
+    const outputDiv = this.outputElement;
+    const execTimeSpan = this.execTimeElement;
+
+    try {
+      outputDiv.textContent = '⏳ Loading browser Python runtime...';
+      const pyodide = await this.loadPyodideRuntime();
+      const stdout = [];
+      const stderr = [];
+
+      pyodide.setStdout({ batched: (message) => stdout.push(message) });
+      pyodide.setStderr({ batched: (message) => stderr.push(message) });
+      await pyodide.runPythonAsync(code);
+
+      const output = [...stdout, ...stderr].join('\\n');
+      outputDiv.textContent = output || '[no output]';
+      if (execTimeSpan) {
+        execTimeSpan.textContent = `⏱Execution time: ${Date.now() - startTime}ms (browser Python)`;
+      }
+    } catch (fallbackError) {
+      outputDiv.textContent = 'Error: ' + fallbackError.message;
+      if (execTimeSpan) execTimeSpan.textContent = '';
     }
   }
 
