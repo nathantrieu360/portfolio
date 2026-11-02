@@ -108,7 +108,8 @@ if (typeof CodeMirror !== 'undefined' && !CodeMirror.modes['pseudocode']) {
 </script>
 
 <script type="module">
-import { BaseRunner, CodeExecutor, PseudocodeExecutor } from '{{site.baseurl}}/assets/js/pages/runners/index.js';
+import { BaseRunner, PseudocodeExecutor } from '{{site.baseurl}}/assets/js/pages/runners/index.js';
+import { CodeExecutor } from '{{site.baseurl}}/assets/js/pages/runners/executors/CodeExecutor.js?v={{ site.github.build_revision | default: "2" }}';
 import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
 
 (function() {
